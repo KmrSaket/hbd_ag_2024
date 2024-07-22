@@ -22,12 +22,7 @@ class Terminal {
     constructor() {
         this.matrix = [];
         this.size = 8;
-        this.charRerenderFrame = 5;
-        this.XRerenderFrame = 10;
-        this.YRerenderFrameUP = 15;
-        this.YRerenderFrameDN = 10;
-
-        this.charRerenderFrame = this.XRerenderFrame = this.YRerenderFrameUP = this.YRerenderFrameDN = 1;
+        this.charRerenderFrame = 10;
 
         this.w = document.documentElement.clientWidth;
         this.h = window.innerHeight / 2;
@@ -46,8 +41,10 @@ class Terminal {
     }
     draw(string) {
         this.string = string;
-        this.p5.background(0);
-        this.createMatrix();
+        if (this.p5.frameCount % this.charRerenderFrame === 0) {
+            this.p5.background(0);
+            this.createMatrix();
+        }
     }
     createMatrix() {
         // prepare 2d matrix from string based on w h and size
